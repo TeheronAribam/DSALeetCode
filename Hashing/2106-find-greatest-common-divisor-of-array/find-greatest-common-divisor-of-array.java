@@ -14,12 +14,17 @@ class Solution {
     }
 
     private int getGCD(int n1, int n2) {
-        int max = Math.max(n1, n2);
-        int min = Math.min(n1, n2);
-        if (min == 0) {
-            return max;
-        }
+        // int max = Math.max(n1, n2);
+        // int min = Math.min(n1, n2);
+        // if (min == 0) {
+        //     return max;
+        // }
 
-        return this.getGCD(max-min, min);
+        // return this.getGCD(max-min, min);
+
+        if (n2 == 0){
+            return n1;
+        }
+        return this.getGCD(n2, n1% n2);
     }
 }

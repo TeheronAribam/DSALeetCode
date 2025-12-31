@@ -1,22 +1,45 @@
 class Solution {
     public int maxFrequency(int[] nums, int k) {
         Arrays.sort(nums);
-        long total = 0;   // use long to avoid overflow
+
+        // int size = nums.length;
+        // int windowSize = size;
+        // int cost = 0;
+
+        // while(windowSize > 0) {
+        //     for (int i = size-1; i>=windowSize-1 ; i--) {
+        //         int windowSum = 0;
+        //         for(int j=i-1; j>i-windowSize; j--) {
+        //             windowSum+=nums[j];
+        //         }
+        //         cost = nums[i]*(windowSize-1) - windowSum;
+        //         if (cost <= k) {
+        //             return windowSize;
+        //         }
+        //     }
+        //     windowSize--;
+        // }
+
+        // return windowSize;
+
         int left = 0;
-        int maxFreq = 1;
+        int freq = 1;
+        long windowSum=0;
 
-        for (int right = 0; right < nums.length; right++) {
-            total += nums[right];
+        for (int right = 0; right<nums.length; right++) {
+            windowSum+=nums[right];
+            int windowSize = right - left + 1;
+            long cost = (long)nums[right] * windowSize - windowSum;
 
-            // While cost to make all values equal to nums[right] exceeds k, shrink window
-            while ((long) nums[right] * (right - left + 1) - total > k) {
-                total -= nums[left];
-                left++;
+            while (cost > k) {
+                windowSum = windowSum - nums[left++];
+                windowSize = right - left + 1;
+                cost = nums[right] * windowSize - windowSum;
             }
 
-            maxFreq = Math.max(maxFreq, right - left + 1);
+            freq = Math.max(freq, windowSize);
         }
 
-        return maxFreq;
+        return freq;
     }
 }

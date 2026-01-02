@@ -18,9 +18,7 @@ class Solution {
         int lastPointer = 0;
 
         for (int i = 1; i<nums.length; i++) {
-            if(nums[i] == nums[i-1]) {
-
-            } else {
+            if(nums[i] != nums[i-1]) {
                 k++;
                 nums[++lastPointer] = nums[i];
             }
